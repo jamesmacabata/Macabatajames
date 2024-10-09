@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart'; 
+
+// Define the stateless widget
+class Counter extends StatelessWidget {  
+  final int counter;  
+  final VoidCallback onIncrement;  
+
+// Contructor of the counter widget
+  const Counter({  
+    super.key,
+    required this.counter,  
+    required this.onIncrement,  
+  });
+
+//Nagdedescribe ng widget tree the para sa counter widget
+  @override
+  Widget build(BuildContext context) {  
+    return Row(  
+      mainAxisAlignment: MainAxisAlignment.center,  
+      children: <Widget>[  
+        ElevatedButton( 
+          onPressed: onIncrement,  
+          child: const Text('Increment'),  
+        ),
+        const SizedBox(width: 16),  
+        Text('Count: $counter'),  
+      ],
+    );
+  }
+}
+
+//
+class CounterParent extends StatefulWidget { 
+  const CounterParent({super.key});  
+//
+  @override
+  _CounterParentState createState() => _CounterParentState(); 
+}
+//
+class _CounterParentState extends State<CounterParent> {  
+  int _counter = 0;  
+  void _incrementCounter() {  
+    setState(() {  
+      _counter++; 
+    });
+  }
+
+//Describe the widget tree to the CounterParent widget
+  @override
+  Widget build(BuildContext context) {  
+    return Center( 
+      child: Counter(  
+        counter: _counter,  
+        onIncrement: _incrementCounter,  
+      ),
+    );
+  }
+}
+
+// main entry point ng application.
+void main() {  
+  runApp(  
+    const MaterialApp(  
+      home: Scaffold( 
+        body: CounterParent(),  
+      ),
+    ),
+  );
+}
